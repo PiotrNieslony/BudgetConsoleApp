@@ -21,7 +21,7 @@ Income::Income(int sIncomDate, string sIncomSource, double sIncomeAmount){
 void Income::writeIncome(){
     User user;
     ownerId = user.getIdLoggedUser();
-    incomDate = date.convertDateToInt(date.addDate());
+    incomDate = date.convertDateToInt(date.writeDate());
     cout << "Wprowdz zrodlo dochodu: ";
     cin.sync();
     getline(cin, incomSource);

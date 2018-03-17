@@ -19,8 +19,11 @@ class Date{
 public:
     bool hasCorrectValue(string checkedDate);
     string todayDate();
-    string addDate();
+    string writeDate();
+    string firstDayInCurrentMonth();
     string lastDayInCurrentMonth();
+    string firstDayInPreviousMonth();
+    string lastDayInPreviousMonth();
     bool hasCorrectFormat(string dateString);
     bool istDateCorect(string dateString);
     int convertDateToInt(string dateString);

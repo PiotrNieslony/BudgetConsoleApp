@@ -59,7 +59,6 @@ void IncomeXMLFile::loadAllRecords(vector<Income>& incomes) {
         xmlIncomes.IntoElem();
         xmlIncomes.FindElem("incomeId");
         incomeId = atoi( MCD_2PCSZ(xmlIncomes.GetData()) );
-        cout << "income id: " << incomeId << endl;
         if ( incomeId > lastIncomeId) lastIncomeId = incomeId;
         xmlIncomes.FindElem("userId");
         idOwner = atoi( MCD_2PCSZ(xmlIncomes.GetData()) );

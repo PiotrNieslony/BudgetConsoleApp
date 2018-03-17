@@ -51,18 +51,46 @@ void IncomeBudget::displayTableRow(Income income) {
             income.getAmount());
 }
 
-void IncomeBudget::displayIncomes() {
+void IncomeBudget::displayIncomes(int dateFrom, int dateTo) {
     system("cls");
+    stringstream buffer;
+    int date;
     sort(incomes.begin(), incomes.end());
     displaySeparatingLine();
     displayHeaderTable();
     vector<Income>::iterator vectorEnd = incomes.end();
     for(vector<Income>::iterator itr = incomes.begin(); itr != vectorEnd; ++itr) {
-        displayTableRow(*itr);
+        date = (*itr).getDate();
+        if((date >= dateFrom) && (date <= dateTo)) {
+            displayTableRow(*itr);
+        }
     }
     displaySeparatingLine();
     sumIncomes();
     system("pause");
+}
+
+void IncomeBudget::displayCurrentMonth() {
+    Date date;
+    int dateFrom = date.convertDateToInt(date.firstDayInCurrentMonth());
+    int dateTo = date.convertDateToInt(date.lastDayInCurrentMonth());
+    displayIncomes(dateFrom, dateTo);
+}
+
+void IncomeBudget::displayPreviousMonth() {
+    Date date;
+    int dateFrom = date.convertDateToInt(date.firstDayInPreviousMonth());
+    int dateTo = date.convertDateToInt(date.lastDayInPreviousMonth());
+    displayIncomes(dateFrom, dateTo);
+}
+
+void IncomeBudget::displaySpecificRange() {
+    Date date;
+    cout << "Data od. ";
+    int dateFrom = date.convertDateToInt(date.writeDate());
+    cout << "Data Do. ";
+    int dateTo = date.convertDateToInt(date.writeDate());
+    displayIncomes(dateFrom, dateTo);
 }
 
 double IncomeBudget::sumIncomes() {
@@ -78,4 +106,8 @@ double IncomeBudget::sumIncomes() {
 void IncomeBudget::loadIncomesFromXML() {
     IncomeXMLFile incomeXmlFile;
     incomeXmlFile.loadAllRecords(incomes);
+}
+
+void IncomeBudget::clearVector() {
+    incomes.clear();
 }

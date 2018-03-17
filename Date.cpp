@@ -12,30 +12,29 @@ string Date::todayDate() {
     return todayDate = buffer;
 }
 
-string Date::addDate() {
+string Date::writeDate() {
     string date;
     while(true) {
-        cout << "Wpisz date (w formacie rrrr-mm-dd) lub wpisz 0 jesli ma byc uzyta dzisiejsza data: ";
+        cout << "Wpisz date (w formacie rrrr-mm-dd) lub 0 jesli ma byc uzyta dzisiejsza data: ";
         cin >> date;
-        if(date == "0"){
+        if(date == "0") {
             dateString = todayDate();
             return dateString;
         }
-        if(!(hasCorrectFormat(date))){
-                cout << "Niepoprawny format" << endl;
-                continue;
+        if(!(hasCorrectFormat(date))) {
+            cout << "Niepoprawny format" << endl;
+            continue;
         }
         if(!(hasCorrectValue(date))) {
-                cout << "Niepoprawna wartosc" << endl;
-                continue;
+            cout << "Niepoprawna wartosc" << endl;
+            continue;
         }
-        if(hasCorrectRange(date)){
+        if(hasCorrectRange(date)) {
             dateString = date;
             return date;
-        }
-        else {
-                cout << "Data powinna byc z przedzialu od 2001-01-01 do " + lastDayInCurrentMonth() << endl;
-                continue;
+        } else {
+            cout << "Data powinna byc z przedzialu od 2001-01-01 do " + lastDayInCurrentMonth() << endl;
+            continue;
         }
     }
 }
@@ -50,6 +49,64 @@ string Date::lastDayInCurrentMonth() {
     int month = timeinfo->tm_mon + 1;
     int year = timeinfo->tm_year + 1900;
     timeinfo->tm_mday = howManyDaysInMonth(month, year);
+    strftime (buffer,80,"%Y-%m-%d",timeinfo);
+    return date = buffer;
+}
+
+string Date::firstDayInCurrentMonth() {
+    time_t rowtime;
+    struct tm * timeinfo;
+    char buffer [80];
+    string date;
+    time(&rowtime);
+    timeinfo = localtime(&rowtime);
+    int month = timeinfo->tm_mon + 1;
+    int year = timeinfo->tm_year + 1900;
+    timeinfo->tm_mday = 1;
+    strftime (buffer,80,"%Y-%m-%d",timeinfo);
+    return date = buffer;
+}
+
+string Date::lastDayInPreviousMonth() {
+    time_t rowtime;
+    struct tm * timeinfo;
+    char buffer [80];
+    string date;
+    time(&rowtime);
+    timeinfo = localtime(&rowtime);
+    int month = timeinfo->tm_mon;
+    int year = timeinfo->tm_year + 1900;
+    if(month == 0) {
+        timeinfo->tm_mon = 11;
+        timeinfo->tm_year--;
+        month = 12;
+        year --;
+    } else {
+        timeinfo->tm_mon = month - 1;
+    }
+    timeinfo->tm_mday = howManyDaysInMonth(month, year);
+    strftime (buffer,80,"%Y-%m-%d",timeinfo);
+    return date = buffer;
+}
+
+string Date::firstDayInPreviousMonth() {
+    time_t rowtime;
+    struct tm * timeinfo;
+    char buffer [80];
+    string date;
+    time(&rowtime);
+    timeinfo = localtime(&rowtime);
+    int month = timeinfo->tm_mon;
+    int year = timeinfo->tm_year + 1900;
+    if(month == 0) {
+        timeinfo->tm_mon = 11;
+        timeinfo->tm_year--;
+        month = 12;
+        year --;
+    } else {
+        timeinfo->tm_mon = month - 1;
+    }
+    timeinfo->tm_mday = 1;
     strftime (buffer,80,"%Y-%m-%d",timeinfo);
     return date = buffer;
 }

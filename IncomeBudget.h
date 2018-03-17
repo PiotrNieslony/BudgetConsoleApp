@@ -24,8 +24,12 @@ public:
     void setLastIncomeId(int id);
     void addIncome(Income income);
     void writeIncome();
-    void displayIncomes();
+    void displaySpecificRange();
+    void displayPreviousMonth();
+    void displayCurrentMonth();
+    void displayIncomes(int dateFrom, int dateTo);
     double sumIncomes();
+    void clearVector();
 
 };
 #endif // INCOME_BUDGET_H

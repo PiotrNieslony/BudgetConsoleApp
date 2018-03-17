@@ -17,11 +17,10 @@ class IncomeXMLFile :public File {
 public:
     IncomeXMLFile();
     IncomeXMLFile(string name);
-    void editRecord(Income income);
     void addRecord(Income income);
     void loadAllRecords(vector<Income>& incomes);
 };
 
 #endif // INCOME_XML_FILE_H
-using namespace std;
+
 

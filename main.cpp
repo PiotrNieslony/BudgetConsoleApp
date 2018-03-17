@@ -8,9 +8,12 @@
 
 
 using namespace std;
-
+//TODO rename Income and IncomeBudget to sam general name
+//TODO create clase BudgetManager with 2 object with renamed IncomeBudget
 int main()
 {
+    Date date;
+    cout << "first day: " << date.firstDayInPreviousMonth() << "last day: " << date.lastDayInPreviousMonth() << endl;
     User user;
     Users users;
     IncomeBudget incomes;
@@ -19,7 +22,7 @@ int main()
     {
         if (user.getIdLoggedUser() == 0)
         {
-            //system("cls");
+            system("cls");
             cout << "Id zalogowanego uzytkownidka: " <<  user.getIdLoggedUser() << endl;
             cout << "Ilosc zarejestrowanycjh uzytkownikow: " << users.numberOfRegisteredUsers() << endl;
             cout << "Menu logowania" << endl;
@@ -75,15 +78,15 @@ int main()
             }
             else if (choice == '3')
             {
-                incomes.displayIncomes();
+                incomes.displayCurrentMonth();
             }
             else if (choice == '4')
             {
-
+                incomes.displayPreviousMonth();
             }
             else if (choice == '5')
             {
-
+                incomes.displaySpecificRange();
             }
             else if (choice == '7')
             {
@@ -91,6 +94,7 @@ int main()
             }
             else if (choice == '8')
             {
+                incomes.clearVector();
                 user.setIdLoggedUser(0);
             }
             else if (choice == '9')
