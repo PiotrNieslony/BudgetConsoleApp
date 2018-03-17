@@ -5,6 +5,7 @@
 #include "Income.h"
 #include "File.h"
 #include "Conversion.h"
+#include "ConsoleMessage.h"
 
 #ifndef INCOME_XML_FILE_H
 #define INCOME_XML_FILE_H
@@ -18,7 +19,7 @@ public:
     IncomeXMLFile(string name);
     void editRecord(Income income);
     void addRecord(Income income);
-    void loadAllRecords(vector<Income> incomes);
+    void loadAllRecords(vector<Income>& incomes);
 };
 
 #endif // INCOME_XML_FILE_H

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "Amount.h"
 #include "Conversion.h"
 #include "Date.h"
@@ -21,7 +22,9 @@ public:
 
     Income();
     Income(int incomDate, string incomSource, double incomeAmount);
+    void setId(int id);
     void setAll(int incomDate, string incomSource, double incomeAmount);
+    void setAll(int sIncomDate, string sIncomSource, double sIncomeAmount, int id, int userId);
     void setLastId(int id);
     void writeIncome();
     int getId();

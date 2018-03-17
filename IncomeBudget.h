@@ -4,6 +4,7 @@
 #include <algorithm>
 #include "Income.h"
 #include "Date.h"
+#include "IncomeXMLFile.h"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ class IncomeBudget {
     void displayTableRow(Income income);
     string generateDashes(int quantity);
 public:
+    void loadIncomesFromXML();
     void setLastIncomeId(int id);
     void addIncome(Income income);
     void writeIncome();

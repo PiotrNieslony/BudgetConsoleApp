@@ -10,9 +10,10 @@ IncomeXMLFile::IncomeXMLFile(string name)
     :File(name) {
     fileName = name;
 }
-/*
-void IncomeXMLFile::addRecord(Income income) {
 
+void IncomeXMLFile::addRecord(Income income) {
+    ConsoleMessage consoleMessage;
+    Date date;
     bool statusOfSave = false;
     if(isFileEmpty()) {
         xmlIncomes.AddElem( "Incomes" );
@@ -26,78 +27,57 @@ void IncomeXMLFile::addRecord(Income income) {
     xmlIncomes.AddElem("Income");
     xmlIncomes.IntoElem();
     xmlIncomes.AddElem( "incomeId",  income.getId());
-    xmlIncomes.AddElem( "userId",  income.getUserId());
-    xmlIncomes.AddElem( "date",     income.getDate());
+    xmlIncomes.AddElem( "userId",  income.getOwnerId());
+    xmlIncomes.AddElem( "date",     date.convertDateToString(income.getDate()));
     xmlIncomes.AddElem( "source",  income.getSource());
     xmlIncomes.AddElem( "amount",    income.getAmount());
     xmlIncomes.OutOfElem();
 
     statusOfSave = xmlIncomes.Save(fileName.c_str());
-    if(statusOfSave) cout << "Dodano dane do pliku XML" << endl;
-    else cout << "Wystlpil problem podczas zapisu danch do plikku: " << fileName << endl;
+    if(!statusOfSave)
+        consoleMessage.display("Wystlpil problem podczas zapisu danch do plikku: " + fileName, "critical");
 }
 
+void IncomeXMLFile::loadAllRecords(vector<Income>& incomes) {
+    ConsoleMessage consoleMessage;
+    User user;
+    Date date;
+    int idLoggedUser = user.getIdLoggedUser();
+    int lastIncomeId = 0;
+    bool statusOfLoad = false;
+    int incomeId, idOwner,incomeDate, dateInt;
+    double amount;
+    string dateString, source;
+    Income singleIncome;
 
-void IncomeXMLFile::editRecord(Income income) {
-    bool statusOfSave = false;
-    int incomeId = income.getId();
-    int incomeIdXml;
+    statusOfLoad = xmlIncomes.Load(fileName.c_str());
+    if(!statusOfLoad) consoleMessage.display("Wystlpil problem podczas odczytu danch do pliku: "  + fileName, "critical");
 
-    xmlIncomes.ResetPos();
     xmlIncomes.FindElem();
     xmlIncomes.IntoElem();
     while ( xmlIncomes.FindElem("Income") ) {
         xmlIncomes.IntoElem();
         xmlIncomes.FindElem("incomeId");
-        incomeIdXml = atoi( MCD_2PCSZ(xmlIncomes.GetData()) );
-        if(incomeIdXml == incomeId) {
-            xmlIncomes.FindElem("name");
-            xmlIncomes.SetData(income.getName());
-            xmlIncomes.FindElem("surname");
-            xmlIncomes.SetData(income.getSurname());
-            xmlIncomes.FindElem("login");
-            xmlIncomes.SetData(income.getLogin());
-            xmlIncomes.FindElem("password");
-            xmlIncomes.SetData(income.getPassword());
-            break;
+        incomeId = atoi( MCD_2PCSZ(xmlIncomes.GetData()) );
+        cout << "income id: " << incomeId << endl;
+        if ( incomeId > lastIncomeId) lastIncomeId = incomeId;
+        xmlIncomes.FindElem("userId");
+        idOwner = atoi( MCD_2PCSZ(xmlIncomes.GetData()) );
+        if (idOwner == idLoggedUser) {
+            xmlIncomes.FindElem("date");
+            dateString = xmlIncomes.GetData();
+            xmlIncomes.FindElem("source");
+            source = xmlIncomes.GetData();
+            xmlIncomes.FindElem("amount");
+            amount = atof(MCD_2PCSZ(xmlIncomes.GetData()));
+            dateInt = date.convertDateToInt(dateString);
+            singleIncome.setAll(dateInt, source, amount, incomeId, idOwner);
+            incomes.push_back(singleIncome);
         }
         xmlIncomes.OutOfElem();
     }
-
-    statusOfSave = xmlIncomes.Save(fileName.c_str());
-    if(statusOfSave) cout << "Dodano dane do pliku XML" << endl;
-    else cout << "Wystlpil problem podczas zapisu danch do plikku" << endl;
+    singleIncome.setLastId(lastIncomeId);
 }
 
-void IncomeXMLFile::loadAllRecords(vector<Income>& listOfUser) {
-    bool statusOfLoad = false;
-    int id;
-    string name, surname, login, password;
-    Income singleUser;
-    fstream usersFile;
-
-    statusOfLoad = xmlIncomes.Load(fileName.c_str());
-    if(!statusOfLoad) cout << "Wystlpil problem podczas odczytu danch do pliku: "  << fileName << endl;
-
-    xmlIncomes.FindElem();
-    xmlIncomes.IntoElem();
-    while ( xmlIncomes.FindElem("Income") ) {
-        xmlIncomes.IntoElem();
-        xmlIncomes.FindElem("ulserId");
-        id = atoi( MCD_2PCSZ(xmlIncomes.GetData()) );
-        xmlIncomes.FindElem("name");
-        name = xmlIncomes.GetData();
-        xmlIncomes.FindElem("surname");
-        surname = xmlIncomes.GetData();
-        xmlIncomes.FindElem("login");
-        login = xmlIncomes.GetData();
-        xmlIncomes.FindElem("password");
-        password = xmlIncomes.GetData();
-        xmlIncomes.OutOfElem();
-        singleUser.setAll(id, name, surname, login, password);
-        listOfUser.push_back(singleUser);
-    }
-}
-*/
 
 

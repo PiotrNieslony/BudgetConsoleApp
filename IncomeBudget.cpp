@@ -7,15 +7,18 @@ void IncomeBudget::setLastIncomeId(int id) {
 }
 
 void IncomeBudget::addIncome(Income income) {
+    IncomeXMLFile incomeXMLFile;
     incomes.push_back(income);
-    sort(incomes.begin(), incomes.end());
+    incomeXMLFile.addRecord(income);
+
 }
 
 void IncomeBudget::writeIncome() {
+    IncomeXMLFile incomeXMLFile;
     Income income;
     income.writeIncome();
     incomes.push_back(income);
-    sort(incomes.begin(), incomes.end());
+    incomeXMLFile.addRecord(income);
 }
 
 void IncomeBudget::displaySeparatingLine() {
@@ -49,7 +52,8 @@ void IncomeBudget::displayTableRow(Income income) {
 }
 
 void IncomeBudget::displayIncomes() {
-    ("cls");
+    system("cls");
+    sort(incomes.begin(), incomes.end());
     displaySeparatingLine();
     displayHeaderTable();
     vector<Income>::iterator vectorEnd = incomes.end();
@@ -69,4 +73,9 @@ double IncomeBudget::sumIncomes() {
     }
     cout << "Suma przychodow: "<< fixed << setprecision(2) << incomesSum << endl;
     return incomesSum;
+}
+
+void IncomeBudget::loadIncomesFromXML() {
+    IncomeXMLFile incomeXmlFile;
+    incomeXmlFile.loadAllRecords(incomes);
 }

@@ -23,9 +23,19 @@ void Income::writeIncome(){
     ownerId = user.getIdLoggedUser();
     incomDate = date.convertDateToInt(date.addDate());
     cout << "Wprowdz zrodlo dochodu: ";
-    cin >> incomSource;
+    cin.sync();
+    getline(cin, incomSource);
     incomeAmount = amount.typeValue();
     cout << "incomeAmount: " << incomeAmount << endl;
+}
+
+void Income::setAll(int sIncomDate, string sIncomSource, double sIncomeAmount, int id, int userId){
+    incomeId = id;
+    ownerId = userId;
+    incomDate = sIncomDate;
+    incomDate = sIncomDate;
+    incomSource = sIncomSource;
+    incomeAmount = sIncomeAmount;
 }
 
 void Income::setAll(int sIncomDate, string sIncomSource, double sIncomeAmount){
@@ -41,7 +51,7 @@ int Income::getId(){
     return incomeId;
 }
 
-int Income::getOwnerId();(){
+int Income::getOwnerId(){
     return ownerId;
 }
 

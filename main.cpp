@@ -9,24 +9,16 @@
 
 using namespace std;
 
-int main() {
+int main()
+{
     User user;
     Users users;
     IncomeBudget incomes;
-    Income income(20180303, "Wyplata1", 125.30);
-    Income income2(20180404, "Wyplata2", 1000);
-    Income income3(20180305, "Wyplata3", 150);
-    Income income4(20160305, "Wyplata3", 150);
-    Income income5(20160305, "Wyplata2", 150);
-    incomes.addIncome(income);
-    incomes.addIncome(income2);
-    incomes.addIncome(income3);
-    incomes.addIncome(income4);
-    incomes.addIncome(income5);
-    incomes.displayIncomes();
     char choice;
-    while(true) {
-        if (user.getIdLoggedUser() == 0) {
+    while(true)
+    {
+        if (user.getIdLoggedUser() == 0)
+        {
             //system("cls");
             cout << "Id zalogowanego uzytkownidka: " <<  user.getIdLoggedUser() << endl;
             cout << "Ilosc zarejestrowanycjh uzytkownikow: " << users.numberOfRegisteredUsers() << endl;
@@ -39,17 +31,26 @@ int main() {
             cout << endl << "wybierz: ";
             cin >> choice;
             cin.sync();
-            if(choice == '1') {
-                users.logIn();
-            } else if (choice == '2') {
+            if(choice == '1')
+            {
+                if(users.logIn()) incomes.loadIncomesFromXML();
+            }
+            else if (choice == '2')
+            {
                 system("cls");
                 users.singUp();
-            } else if (choice == '3') {
+            }
+            else if (choice == '3')
+            {
                 users.displayUsers();
-            } else if (choice == '9') {
+            }
+            else if (choice == '9')
+            {
                 exit(0);
             }
-        } else {
+        }
+        else
+        {
             system("cls");
             cout << "Id zalogowanego uzytkownidka: " <<  user.getIdLoggedUser() << endl;
             cout << "Menu glowne" << endl;
@@ -64,21 +65,36 @@ int main() {
             cout << "9. Zamknij program" << endl;
             cin >> choice;
             cin.sync();
-            if(choice == '1') {
+            if(choice == '1')
+            {
                 incomes.writeIncome();
-            } else if (choice == '2') {
+            }
+            else if (choice == '2')
+            {
 
-            } else if (choice == '3') {
+            }
+            else if (choice == '3')
+            {
                 incomes.displayIncomes();
-            } else if (choice == '4') {
+            }
+            else if (choice == '4')
+            {
 
-            } else if (choice == '5') {
+            }
+            else if (choice == '5')
+            {
 
-            } else if (choice == '7') {
+            }
+            else if (choice == '7')
+            {
                 users.changePassword();
-            } else if (choice == '8') {
+            }
+            else if (choice == '8')
+            {
                 user.setIdLoggedUser(0);
-            } else if (choice == '9') {
+            }
+            else if (choice == '9')
+            {
                 exit(0);
             }
         }

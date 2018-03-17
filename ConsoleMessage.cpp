@@ -58,7 +58,7 @@ void ConsoleMessage::critical(string textToDisplay) {
 void ConsoleMessage::display() {
     if(type == "neutral")         neutral(text);
     else if(type == "warning") warning(text);
-    else if(type == "neutral")    critical(text);
+    else if(type == "critical")    critical(text);
 }
 
 void ConsoleMessage::display(string textToDisplay){
