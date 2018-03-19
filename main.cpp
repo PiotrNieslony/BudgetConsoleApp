@@ -10,22 +10,19 @@
 
 using namespace std;
 
-void displayHeaderOfAplication(){
+void displayHeaderOfAplication() {
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),3);
     cout << "Budzet v 0.1" << endl << endl;
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
 }
 
-int main()
-{
+int main() {
     User user;
     Users users;
     BudgetManager budget;
     char choice;
-    while(true)
-    {
-        if (user.getIdLoggedUser() == 0)
-        {
+    while(true) {
+        if (user.getIdLoggedUser() == 0) {
             system("cls");
             displayHeaderOfAplication();
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),6);
@@ -40,26 +37,17 @@ int main()
             cout << endl << "wybierz: ";
             cin >> choice;
             cin.sync();
-            if(choice == '1')
-            {
+            if(choice == '1') {
                 if(users.logIn()) budget.loadBudgetFromFiles();
-            }
-            else if (choice == '2')
-            {
+            } else if (choice == '2') {
                 system("cls");
                 users.singUp();
-            }
-            else if (choice == '3')
-            {
+            } else if (choice == '3') {
                 users.displayUsers();
-            }
-            else if (choice == '9')
-            {
+            } else if (choice == '9') {
                 exit(0);
             }
-        }
-        else
-        {
+        } else {
             system("cls");
             displayHeaderOfAplication();
             budget.displayGeneralSummary();
@@ -76,37 +64,22 @@ int main()
             cout << endl << "wybierz: ";
             cin >> choice;
             cin.sync();
-            if(choice == '1')
-            {
+            if(choice == '1') {
                 budget.addIncome();
-            }
-            else if (choice == '2')
-            {
+            } else if (choice == '2') {
                 budget.addExpense();
-            }
-            else if (choice == '3')
-            {
+            } else if (choice == '3') {
                 budget.displayBudgetCurrentMonth();
-            }
-            else if (choice == '4')
-            {
+            } else if (choice == '4') {
                 budget.displayBudgetPreviousMonth();
-            }
-            else if (choice == '5')
-            {
+            } else if (choice == '5') {
                 budget.displayBudgetSpecificRange();
-            }
-            else if (choice == '7')
-            {
+            } else if (choice == '7') {
                 users.changePassword();
-            }
-            else if (choice == '8')
-            {
+            } else if (choice == '8') {
                 budget.clearBudget();
                 user.setIdLoggedUser(0);
-            }
-            else if (choice == '9')
-            {
+            } else if (choice == '9') {
                 exit(0);
             }
         }
