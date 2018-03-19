@@ -16,10 +16,9 @@ class BudgetPartXMLFile :public File {
     CMarkup xmlIncomes;
 
 public:
-    BudgetPartXMLFile();
     BudgetPartXMLFile(string name);
     void addRecord(BudgetItem budgetItem);
-    int loadAllRecords(vector<BudgetItem>& incomes);
+    int loadAllRecords(vector<BudgetItem>& budgetPartItems);
 };
 
 #endif // INCOME_XML_FILE_H

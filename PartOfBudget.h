@@ -8,11 +8,11 @@
 
 using namespace std;
 
-#ifndef INCOME_BUDGET_H
-#define INCOME_BUDGET_H
+#ifndef PART_OF_BUDGET_H
+#define PART_OF_BUDGET_H
 
 class PartOfBudget {
-    vector<BudgetItem> incomes;
+    vector<BudgetItem> budgetPartItems;
     int lastBudgetPartId;
     string fileName;
     BudgetPartXMLFile budgetPartXMLFile;
@@ -35,4 +35,4 @@ public:
     void clearVector();
 
 };
-#endif // INCOME_BUDGET_H
+#endif // PART_OF_BUDGET_H

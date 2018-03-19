@@ -15,7 +15,7 @@ void PartOfBudget::setLastBudgetPartItemId(int id) {
 void PartOfBudget::addBudgetItem(BudgetItem budgetItem) {
     budgetItem.setLastId(lastBudgetPartId);
     lastBudgetPartId++;
-    incomes.push_back(budgetItem);
+    budgetPartItems.push_back(budgetItem);
     budgetPartXMLFile.addRecord(budgetItem);
 
 }
@@ -25,7 +25,7 @@ void PartOfBudget::writeBudgetItem() {
     budgetItem.setLastId(lastBudgetPartId);
     lastBudgetPartId++;
     budgetItem.writeBudgetItem();
-    incomes.push_back(budgetItem);
+    budgetPartItems.push_back(budgetItem);
     budgetPartXMLFile.addRecord(budgetItem);
 }
 
@@ -108,11 +108,11 @@ double PartOfBudget::displayPartOfBudget(int dateFrom, int dateTo) {
     stringstream buffer;
     int date;
     double partOfBudgetSum = 0;
-    sort(incomes.begin(), incomes.end());
+    sort(budgetPartItems.begin(), budgetPartItems.end());
     displaySeparatingLineTop();
     displayHeaderTable();
-    vector<BudgetItem>::iterator vectorEnd = incomes.end();
-    for(vector<BudgetItem>::iterator itr = incomes.begin(); itr != vectorEnd; ++itr) {
+    vector<BudgetItem>::iterator vectorEnd = budgetPartItems.end();
+    for(vector<BudgetItem>::iterator itr = budgetPartItems.begin(); itr != vectorEnd; ++itr) {
         date = (*itr).getDate();
         if((date >= dateFrom) && (date <= dateTo)) {
             displayTableRow(*itr);
@@ -125,17 +125,17 @@ double PartOfBudget::displayPartOfBudget(int dateFrom, int dateTo) {
 
 double PartOfBudget::sumBudgetPart() {
     double incomesSum = 0;
-    vector<BudgetItem>::iterator vectorEnd = incomes.end();
-    for(vector<BudgetItem>::iterator itr = incomes.begin(); itr != vectorEnd; ++itr) {
+    vector<BudgetItem>::iterator vectorEnd = budgetPartItems.end();
+    for(vector<BudgetItem>::iterator itr = budgetPartItems.begin(); itr != vectorEnd; ++itr) {
         incomesSum += (*itr).getAmount();
     }
     return incomesSum;
 }
 
 void PartOfBudget::loadBudgetPartFromXML() {
-    lastBudgetPartId = budgetPartXMLFile.loadAllRecords(incomes);
+    lastBudgetPartId = budgetPartXMLFile.loadAllRecords(budgetPartItems);
 }
 
 void PartOfBudget::clearVector() {
-    incomes.clear();
+    budgetPartItems.clear();
 }

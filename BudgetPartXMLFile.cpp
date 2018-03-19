@@ -1,9 +1,5 @@
 #include "BudgetPartXMLFile.h"
 
-BudgetPartXMLFile::BudgetPartXMLFile()
-    :File("Incomes.xml") {
-}
-
 BudgetPartXMLFile::BudgetPartXMLFile(string name)
     :File(name) {
     fileName = name;
@@ -15,7 +11,7 @@ void BudgetPartXMLFile::addRecord(BudgetItem budgetItem) {
     Date date;
     bool statusOfSave = false;
     if(isFileEmpty()) {
-        xmlIncomes.AddElem( "Incomes" );
+        xmlIncomes.AddElem( "PartOfBudget" );
         xmlIncomes.IntoElem();
     } else {
         xmlIncomes.ResetPos();
@@ -36,7 +32,7 @@ void BudgetPartXMLFile::addRecord(BudgetItem budgetItem) {
         consoleMessage.display("Wystlpil problem podczas zapisu danch do plikku: " + fileName, "critical");
 }
 
-int BudgetPartXMLFile::loadAllRecords(vector<BudgetItem>& incomes) {
+int BudgetPartXMLFile::loadAllRecords(vector<BudgetItem>& budgetPartItems) {
     ConsoleMessage consoleMessage;
     User user;
     Date date;
@@ -69,7 +65,7 @@ int BudgetPartXMLFile::loadAllRecords(vector<BudgetItem>& incomes) {
             amount = atof(MCD_2PCSZ(xmlIncomes.GetData()));
             dateInt = date.convertDateToInt(dateString);
             singleIncome.setAll(dateInt, source, amount, incomeId, idOwner);
-            incomes.push_back(singleIncome);
+            budgetPartItems.push_back(singleIncome);
         }
         xmlIncomes.OutOfElem();
     }
