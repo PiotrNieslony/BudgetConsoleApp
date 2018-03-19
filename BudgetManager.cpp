@@ -23,7 +23,8 @@ void BudgetManager::displayBudget(int dateFrom, int dateTo) {
     cout << endl << "Koszty" << endl;
     expensesSum = expenses.displayPartOfBudget(dateFrom, dateTo);
     displaySummaryLine(incomesSum, expensesSum);
-    system("pause");
+    cout << "Nacisnij klawisz 'q' aby wrocic do menu glownego." << endl;
+    while(getch()!='q');
 }
 
 void BudgetManager::displayGeneralSummary() {

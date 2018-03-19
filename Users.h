@@ -10,7 +10,6 @@ using namespace std;
 
 class Users {
     vector<User> listOfUser;
-    int idLoggedUser;
     void addUser(User user);
     int idOfLastUser();
 public:

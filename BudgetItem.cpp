@@ -21,7 +21,7 @@ void BudgetItem::writeBudgetItem(){
     User user;
     ownerId = user.getIdLoggedUser();
     incomDate = date.convertDateToInt(date.writeDate());
-    cout << "Wprowdz zrodlo dochodu: ";
+    cout << "Nazwa: ";
     cin.sync();
     getline(cin, incomSource);
     incomeAmount = amount.typeValue();

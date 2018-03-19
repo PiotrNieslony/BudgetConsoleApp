@@ -1,7 +1,5 @@
 #include "Users.h"
 
-
-
 Users::Users(){
     UsersXMLFile usersFile;
     usersFile.loadAllRecords(listOfUser);
@@ -34,7 +32,6 @@ int Users::idOfLastUser() {
     return (*lastUser).getId();
 
 }
-
 
 void Users::singUp() {
     UsersXMLFile file;
@@ -92,6 +89,8 @@ int Users::logIn() {
 }
 
 void Users::changePassword() {
+    User user;
+    int idLoggedUser = user.getIdLoggedUser();
     string password;
     UsersXMLFile file;
     vector<User>::iterator vectorEnd = listOfUser.end();

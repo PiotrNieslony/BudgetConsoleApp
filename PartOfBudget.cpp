@@ -91,12 +91,11 @@ void PartOfBudget::displayHeaderTable() {
     printf ("|%4s|%11s|%40s|%10s|\n",
             "id", "data", "nazwa", "kwota");
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
-    displaySeparatingLineMiddle();
 }
 
 void PartOfBudget::displayTableRow(BudgetItem budgetItem) {
     string source = budgetItem.getSource();
-    source = generateDashes(40-source.length()) + source;
+    //source = generateDashes(40-source.length()) + source;
     printf ("|%4i|%11s|%40s|%10.2f|\n",
             budgetItem.getId(),
             date.convertDateToString(budgetItem.getDate()).c_str(),
@@ -115,6 +114,7 @@ double PartOfBudget::displayPartOfBudget(int dateFrom, int dateTo) {
     for(vector<BudgetItem>::iterator itr = budgetPartItems.begin(); itr != vectorEnd; ++itr) {
         date = (*itr).getDate();
         if((date >= dateFrom) && (date <= dateTo)) {
+            displaySeparatingLineMiddle();
             displayTableRow(*itr);
             partOfBudgetSum += (*itr).getAmount();
         }
