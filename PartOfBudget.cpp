@@ -81,12 +81,6 @@ void PartOfBudget::displaySeparatingLine() {
     cout << endl;
 }
 
-string PartOfBudget::generateDashes(int quantity) {
-    string dashes = "";
-    for(int i = 0; i < quantity ; i++) dashes += "_";
-    return dashes;
-}
-
 void PartOfBudget::displayHeaderTable() {
     printf ("|%4s|%11s|%40s|%10s|\n",
             "id", "data", "nazwa", "kwota");
@@ -95,7 +89,6 @@ void PartOfBudget::displayHeaderTable() {
 
 void PartOfBudget::displayTableRow(BudgetItem budgetItem) {
     string source = budgetItem.getSource();
-    //source = generateDashes(40-source.length()) + source;
     printf ("|%4i|%11s|%40s|%10.2f|\n",
             budgetItem.getId(),
             date.convertDateToString(budgetItem.getDate()).c_str(),
