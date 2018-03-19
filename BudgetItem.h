@@ -10,7 +10,7 @@
 
 using namespace std;
 
-class Income {
+class BudgetItem {
     int incomeId;
     int incomDate;
     int ownerId;
@@ -22,22 +22,22 @@ class Income {
     Amount amount;
 public:
 
-    Income();
-    Income(int incomDate, string incomSource, double incomeAmount);
+    BudgetItem();
+    BudgetItem(int incomDate, string incomSource, double incomeAmount);
     void setId(int id);
     void setAll(int incomDate, string incomSource, double incomeAmount);
     void setAll(int sIncomDate, string sIncomSource, double sIncomeAmount, int id, int userId);
     void setLastId(int id);
-    void writeIncome();
+    void writeBudgetItem();
     int getId();
     int getOwnerId();
     int getDate();
     string getSource();
     double getAmount();
 
-    Income(int k, const std::string& s) : incomDate(k), incomSource(s) {}
+    BudgetItem(int k, const std::string& s) : incomDate(k), incomSource(s) {}
 
-    bool operator < (const Income& str) const
+    bool operator < (const BudgetItem& str) const
     {
         return (incomDate < str.incomDate);
     }

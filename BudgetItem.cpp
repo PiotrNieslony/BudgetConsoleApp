@@ -1,24 +1,23 @@
-#include "Income.h"
+#include "BudgetItem.h"
 
-int Income::lastId = 0;
+int BudgetItem::lastId = 0;
 
-void Income::setLastId(int id){
+void BudgetItem::setLastId(int id){
     lastId = id;
 }
 
-Income::Income(){
-    incomeId = lastId + 1;
-    lastId++;
+BudgetItem::BudgetItem(){
 }
 
-Income::Income(int sIncomDate, string sIncomSource, double sIncomeAmount){
+BudgetItem::BudgetItem(int sIncomDate, string sIncomSource, double sIncomeAmount){
     incomeId = lastId + 1;
     lastId++;
     setAll(sIncomDate, sIncomSource, sIncomeAmount);
-
 }
 
-void Income::writeIncome(){
+void BudgetItem::writeBudgetItem(){
+    incomeId = lastId + 1;
+    lastId++;
     User user;
     ownerId = user.getIdLoggedUser();
     incomDate = date.convertDateToInt(date.writeDate());
@@ -26,10 +25,9 @@ void Income::writeIncome(){
     cin.sync();
     getline(cin, incomSource);
     incomeAmount = amount.typeValue();
-    cout << "incomeAmount: " << incomeAmount << endl;
 }
 
-void Income::setAll(int sIncomDate, string sIncomSource, double sIncomeAmount, int id, int userId){
+void BudgetItem::setAll(int sIncomDate, string sIncomSource, double sIncomeAmount, int id, int userId){
     incomeId = id;
     ownerId = userId;
     incomDate = sIncomDate;
@@ -38,7 +36,7 @@ void Income::setAll(int sIncomDate, string sIncomSource, double sIncomeAmount, i
     incomeAmount = sIncomeAmount;
 }
 
-void Income::setAll(int sIncomDate, string sIncomSource, double sIncomeAmount){
+void BudgetItem::setAll(int sIncomDate, string sIncomSource, double sIncomeAmount){
     User user;
     ownerId = user.getIdLoggedUser();
     incomDate = sIncomDate;
@@ -47,22 +45,22 @@ void Income::setAll(int sIncomDate, string sIncomSource, double sIncomeAmount){
     incomeAmount = sIncomeAmount;
 }
 
-int Income::getId(){
+int BudgetItem::getId(){
     return incomeId;
 }
 
-int Income::getOwnerId(){
+int BudgetItem::getOwnerId(){
     return ownerId;
 }
 
-int Income::getDate(){
+int BudgetItem::getDate(){
     return incomDate;
 }
 
-string Income::getSource() {
+string BudgetItem::getSource() {
     return incomSource;
 }
 
-double Income::getAmount(){
+double BudgetItem::getAmount(){
     return incomeAmount;
 }

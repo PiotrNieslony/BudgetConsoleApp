@@ -3,28 +3,34 @@
 #include "User.h"
 #include "Users.h"
 #include "Date.h"
-#include "IncomeBudget.h"
-#include "Income.h"
+#include "PartOfBudget.h"
+#include "BudgetItem.h"
+#include "BudgetManager.h"
 
 
 using namespace std;
-//TODO rename Income and IncomeBudget to sam general name
-//TODO create clase BudgetManager with 2 object with renamed IncomeBudget
+
+void displayHeaderOfAplication(){
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),3);
+    cout << "Budzet v 0.1" << endl << endl;
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
+}
+
 int main()
 {
-    Date date;
-    cout << "first day: " << date.firstDayInPreviousMonth() << "last day: " << date.lastDayInPreviousMonth() << endl;
     User user;
     Users users;
-    IncomeBudget incomes;
+    BudgetManager budget;
     char choice;
     while(true)
     {
         if (user.getIdLoggedUser() == 0)
         {
             system("cls");
-            cout << "Id zalogowanego uzytkownidka: " <<  user.getIdLoggedUser() << endl;
-            cout << "Ilosc zarejestrowanycjh uzytkownikow: " << users.numberOfRegisteredUsers() << endl;
+            displayHeaderOfAplication();
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),6);
+            cout << "Ilosc zarejestrowanycjh uzytkownikow: " << users.numberOfRegisteredUsers() << endl << endl;
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),7);
             cout << "Menu logowania" << endl;
             cout <<"----------------" << endl;
             cout << "1. Zalogu sie" << endl;
@@ -36,7 +42,7 @@ int main()
             cin.sync();
             if(choice == '1')
             {
-                if(users.logIn()) incomes.loadIncomesFromXML();
+                if(users.logIn()) budget.loadBudgetFromFiles();
             }
             else if (choice == '2')
             {
@@ -55,38 +61,40 @@ int main()
         else
         {
             system("cls");
-            cout << "Id zalogowanego uzytkownidka: " <<  user.getIdLoggedUser() << endl;
+            displayHeaderOfAplication();
+            budget.displayGeneralSummary();
             cout << "Menu glowne" << endl;
             cout <<"----------------" << endl;
             cout << "1. Dodaj przychod" << endl;
-            cout << "2. ~~Dodaj wydatek" << endl;
-            cout << "3. ~~Bilans z biezacego miesiaca" << endl;
-            cout << "4. ~~Bilans z poprzedniego miesiaca" << endl;
-            cout << "5. ~~Bilans z wybranego okresu" << endl;
+            cout << "2. Dodaj wydatek" << endl;
+            cout << "3. Bilans z biezacego miesiaca" << endl;
+            cout << "4. Bilans z poprzedniego miesiaca" << endl;
+            cout << "5. Bilans z wybranego okresu" << endl;
             cout << "7. Zmien haslo" << endl;
             cout << "8. Wyloguj sie" << endl;
             cout << "9. Zamknij program" << endl;
+            cout << endl << "wybierz: ";
             cin >> choice;
             cin.sync();
             if(choice == '1')
             {
-                incomes.writeIncome();
+                budget.addIncome();
             }
             else if (choice == '2')
             {
-
+                budget.addExpense();
             }
             else if (choice == '3')
             {
-                incomes.displayCurrentMonth();
+                budget.displayBudgetCurrentMonth();
             }
             else if (choice == '4')
             {
-                incomes.displayPreviousMonth();
+                budget.displayBudgetPreviousMonth();
             }
             else if (choice == '5')
             {
-                incomes.displaySpecificRange();
+                budget.displayBudgetSpecificRange();
             }
             else if (choice == '7')
             {
@@ -94,7 +102,7 @@ int main()
             }
             else if (choice == '8')
             {
-                incomes.clearVector();
+                budget.clearBudget();
                 user.setIdLoggedUser(0);
             }
             else if (choice == '9')

@@ -2,7 +2,7 @@
 #include <fstream>
 #include <windows.h>
 #include <vector>
-#include "Income.h"
+#include "BudgetItem.h"
 #include "File.h"
 #include "Conversion.h"
 #include "ConsoleMessage.h"
@@ -12,13 +12,14 @@
 
 using namespace std;
 
-class IncomeXMLFile :public File {
-    static CMarkup xmlIncomes;
+class BudgetPartXMLFile :public File {
+    CMarkup xmlIncomes;
+
 public:
-    IncomeXMLFile();
-    IncomeXMLFile(string name);
-    void addRecord(Income income);
-    void loadAllRecords(vector<Income>& incomes);
+    BudgetPartXMLFile();
+    BudgetPartXMLFile(string name);
+    void addRecord(BudgetItem budgetItem);
+    int loadAllRecords(vector<BudgetItem>& incomes);
 };
 
 #endif // INCOME_XML_FILE_H

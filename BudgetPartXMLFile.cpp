@@ -1,17 +1,16 @@
-#include "IncomeXMLFile.h"
+#include "BudgetPartXMLFile.h"
 
-CMarkup IncomeXMLFile::xmlIncomes;
-
-IncomeXMLFile::IncomeXMLFile()
+BudgetPartXMLFile::BudgetPartXMLFile()
     :File("Incomes.xml") {
 }
 
-IncomeXMLFile::IncomeXMLFile(string name)
+BudgetPartXMLFile::BudgetPartXMLFile(string name)
     :File(name) {
     fileName = name;
 }
 
-void IncomeXMLFile::addRecord(Income income) {
+void BudgetPartXMLFile::addRecord(BudgetItem budgetItem) {
+
     ConsoleMessage consoleMessage;
     Date date;
     bool statusOfSave = false;
@@ -23,14 +22,13 @@ void IncomeXMLFile::addRecord(Income income) {
         xmlIncomes.FindElem();
         xmlIncomes.IntoElem();
     }
-
-    xmlIncomes.AddElem("Income");
+    xmlIncomes.AddElem("BudgetItem");
     xmlIncomes.IntoElem();
-    xmlIncomes.AddElem( "incomeId",  income.getId());
-    xmlIncomes.AddElem( "userId",  income.getOwnerId());
-    xmlIncomes.AddElem( "date",     date.convertDateToString(income.getDate()));
-    xmlIncomes.AddElem( "source",  income.getSource());
-    xmlIncomes.AddElem( "amount",    income.getAmount());
+    xmlIncomes.AddElem( "incomeId",  budgetItem.getId());
+    xmlIncomes.AddElem( "userId",  budgetItem.getOwnerId());
+    xmlIncomes.AddElem( "date",     date.convertDateToString(budgetItem.getDate()));
+    xmlIncomes.AddElem( "source",  budgetItem.getSource());
+    xmlIncomes.AddElem( "amount",    budgetItem.getAmount());
     xmlIncomes.OutOfElem();
 
     statusOfSave = xmlIncomes.Save(fileName.c_str());
@@ -38,28 +36,28 @@ void IncomeXMLFile::addRecord(Income income) {
         consoleMessage.display("Wystlpil problem podczas zapisu danch do plikku: " + fileName, "critical");
 }
 
-void IncomeXMLFile::loadAllRecords(vector<Income>& incomes) {
+int BudgetPartXMLFile::loadAllRecords(vector<BudgetItem>& incomes) {
     ConsoleMessage consoleMessage;
     User user;
     Date date;
     int idLoggedUser = user.getIdLoggedUser();
-    int lastIncomeId = 0;
+    int lastBudgetPartId = 0;
     bool statusOfLoad = false;
     int incomeId, idOwner,incomeDate, dateInt;
     double amount;
     string dateString, source;
-    Income singleIncome;
+    BudgetItem singleIncome;
 
     statusOfLoad = xmlIncomes.Load(fileName.c_str());
     if(!statusOfLoad) consoleMessage.display("Wystlpil problem podczas odczytu danch do pliku: "  + fileName, "critical");
 
     xmlIncomes.FindElem();
     xmlIncomes.IntoElem();
-    while ( xmlIncomes.FindElem("Income") ) {
+    while ( xmlIncomes.FindElem("BudgetItem") ) {
         xmlIncomes.IntoElem();
         xmlIncomes.FindElem("incomeId");
         incomeId = atoi( MCD_2PCSZ(xmlIncomes.GetData()) );
-        if ( incomeId > lastIncomeId) lastIncomeId = incomeId;
+        if ( incomeId > lastBudgetPartId) lastBudgetPartId = incomeId;
         xmlIncomes.FindElem("userId");
         idOwner = atoi( MCD_2PCSZ(xmlIncomes.GetData()) );
         if (idOwner == idLoggedUser) {
@@ -75,7 +73,7 @@ void IncomeXMLFile::loadAllRecords(vector<Income>& incomes) {
         }
         xmlIncomes.OutOfElem();
     }
-    singleIncome.setLastId(lastIncomeId);
+    return lastBudgetPartId;
 }
 
 
