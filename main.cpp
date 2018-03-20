@@ -5,7 +5,6 @@
 #include "BudgetItem.h"
 #include "BudgetManager.h"
 
-
 using namespace std;
 
 void displayHeaderOfAplication() {

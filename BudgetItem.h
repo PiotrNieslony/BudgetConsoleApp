@@ -14,7 +14,7 @@ class BudgetItem {
     int incomeId;
     int incomDate;
     int ownerId;
-    string incomSource;
+    string itemSource;
     double incomeAmount;
     static int lastId;
     Date date;
@@ -35,7 +35,7 @@ public:
     string getSource();
     double getAmount();
 
-    BudgetItem(int k, const std::string& s) : incomDate(k), incomSource(s) {}
+    BudgetItem(int k, const std::string& s) : incomDate(k), itemSource(s) {}
 
     bool operator < (const BudgetItem& str) const
     {

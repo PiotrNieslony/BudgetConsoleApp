@@ -21,9 +21,13 @@ void BudgetItem::writeBudgetItem(){
     User user;
     ownerId = user.getIdLoggedUser();
     incomDate = date.convertDateToInt(date.writeDate());
-    cout << "Nazwa: ";
-    cin.sync();
-    getline(cin, incomSource);
+    while(true){
+        cout << "Nazwa: ";
+        cin.sync();
+        getline(cin, itemSource);
+        if(itemSource.empty() == false) break;
+        else cout << "Nazwa nie moze byc pusta. ";
+    }
     incomeAmount = amount.typeValue();
 }
 
@@ -32,7 +36,7 @@ void BudgetItem::setAll(int sIncomDate, string sIncomSource, double sIncomeAmoun
     ownerId = userId;
     incomDate = sIncomDate;
     incomDate = sIncomDate;
-    incomSource = sIncomSource;
+    itemSource = sIncomSource;
     incomeAmount = sIncomeAmount;
 }
 
@@ -41,7 +45,7 @@ void BudgetItem::setAll(int sIncomDate, string sIncomSource, double sIncomeAmoun
     ownerId = user.getIdLoggedUser();
     incomDate = sIncomDate;
     incomDate = sIncomDate;
-    incomSource = sIncomSource;
+    itemSource = sIncomSource;
     incomeAmount = sIncomeAmount;
 }
 
@@ -58,7 +62,7 @@ int BudgetItem::getDate(){
 }
 
 string BudgetItem::getSource() {
-    return incomSource;
+    return itemSource;
 }
 
 double BudgetItem::getAmount(){
