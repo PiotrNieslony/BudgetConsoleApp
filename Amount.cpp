@@ -9,11 +9,12 @@ double Amount::typeValue() {
         cout << "Wpisz kwote: ";
         cin.sync();
         getline(cin,amountString);
-        int charQuantity = amountString.length();
-        for(int i = 0; i < charQuantity; i++) {
+        int charsQuantity = amountString.length();
+        if(charsQuantity == 0) goto nextIteration;
+        for(int i = 0; i < charsQuantity; i++) {
             if (isspace(amountString[i])) {
                 amountString.erase(i, 1);
-                charQuantity--;
+                charsQuantity--;
                 continue;
             }
             if (amountString[i] == '.' || amountString[i] == ',') {
